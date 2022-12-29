@@ -1,0 +1,140 @@
+---
+swagger: "2.0"
+info:
+  version: 1.0.0
+  title: Example application
+  description: Example application server
+consumes:
+- application/json
+produces:
+- application/json
+schemes:
+- http
+- https
+securityDefinitions:
+  SessionSecurity:
+    description: Session authentication
+    type: apiKey
+    in: header
+    name: Cookie
+# apply all of the below endpoints with this default security
+security:
+  - SessionSecurity: []
+paths:
+  # ===========================================================================
+  # auth
+  # authorization related endpoints
+  /api/auth/login:
+    post:
+      description: Login with user credential information
+      tags:
+        - auth
+      operationId: login
+      security:
+        # override the default security with none
+        []
+      parameters:
+        - name: body
+          in: body
+          required: true
+          schema:
+            $ref: "#/definitions/LoginInfo"
+      responses:
+        200:
+          description: Success, return user's detail info
+          schema:
+            $ref: "#/definitions/UserInfo"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/Error"
+  /api/auth/logout:
+    get:
+      description: Logout current session user
+      tags:
+        - auth
+      operationId: logout
+      parameters:
+        # no parameter is required
+        []
+      responses:
+        200:
+          description: Success, nothing to response
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/Error"
+  # ===========================================================================
+  # user
+  # user related endpoints
+  /api/user/myself:
+    get:
+      description: Get current session user's detail info
+      tags:
+        - user
+      operationId: myself
+      parameters:
+        # no parameter is required
+        []
+      responses:
+        200:
+          description: Success, return user's detail info
+          schema:
+            $ref: "#/definitions/UserInfo"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/Error"
+# ===========================================================================
+definitions:
+  LoginInfo:
+    description: Login credential info structure
+    type: object
+    required:
+      - username
+      - password
+      - imageCode
+    properties:
+      username:
+        type: string
+        minLength: 6
+        x-nullable: false
+      password:
+        type: string
+        minLength: 6
+        x-nullable: false
+      imageCode:
+        type: string
+        minLength: 4
+        x-nullable: false
+  UserInfo:
+    description: User info
+    type: object
+    required:
+      - username
+    properties:
+      username:
+        type: string
+        x-nullable: false
+        x-go-custom-tag: 'db:"Username"'
+      phone:
+        type: string
+        x-nullable: false
+        x-go-custom-tag: 'db:"Phone"'
+      deleted:
+        type: boolean
+        x-nullable: true
+        x-go-custom-tag: 'db:"Deleted"'
+  Error:
+    type: object
+    required:
+      - code
+      - message
+    properties:
+      code:
+        type: integer
+        format: int32
+        x-nullable: false
+      message:
+        type: string
+        x-nullable: false
