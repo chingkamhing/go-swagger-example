@@ -13,7 +13,10 @@ import (
 	"go-swagger-example/config"
 	"go-swagger-example/gen/restapi"
 	"go-swagger-example/gen/restapi/operations"
+	"go-swagger-example/handler"
 	"go-swagger-example/logger"
+	"go-swagger-example/pkg/session"
+	"go-swagger-example/repository"
 )
 
 // Module provided to fx
@@ -28,7 +31,7 @@ func InvokeHttpServer(lifecycle fx.Lifecycle, cfg *config.Configuration, zapLog 
 	// init swagger server
 	swaggerSpec, err := loads.Embedded(restapi.SwaggerJSON, restapi.FlatSwaggerJSON)
 	if err != nil {
-		log.Fatal(err)
+		log.Fatalf("Load swagger json error: %v", err)
 	}
 	api := operations.NewExampleAPI(swaggerSpec)
 	api.Logger = log.Infof
@@ -53,6 +56,18 @@ func InvokeHttpServer(lifecycle fx.Lifecycle, cfg *config.Configuration, zapLog 
 	server.TLSKeepAlive = cfg.Server.TLSKeepAlive
 	server.TLSReadTimeout = cfg.Server.TLSReadTimeout
 	server.TLSWriteTimeout = cfg.Server.TLSWriteTimeout
+
+	// init session
+	sessionUser := newUserSession(cfg, log, server.EnabledListeners)
+	// init repository
+	repo, err := repository.Open(cfg, log)
+	if err != nil {
+		log.Fatalf("Open repository error: %v", err)
+	}
+	// hook all the app's handlers to api
+	api.AuthLoginHandler = handler.NewAuthLogin(repo, log, sessionUser)
+	api.AuthLogoutHandler = handler.NewAuthLogout(log, sessionUser)
+	api.UserMyselfHandler = handler.NewUserMyself(repo, log)
 	server.SetAPI(api)
 
 	// setup middleware
@@ -76,5 +91,31 @@ func InvokeHttpServer(lifecycle fx.Lifecycle, cfg *config.Configuration, zapLog 
 				return nil
 			},
 		},
+	)
+}
+
+// newUserSession create a new user session context
+func newUserSession(cfg *config.Configuration, logger logger.Logger, schemes []string) *session.Session {
+	isSecure := true
+	for _, scheme := range schemes {
+		if scheme == "http" {
+			isSecure = false
+		}
+	}
+	return session.NewSession(
+		logger,
+		session.OptionStore(cfg.Session.Store),
+		session.OptionsRedisNetwork(cfg.Session.Network),
+		session.OptionsRedisAddress(cfg.Session.Address),
+		session.OptionsRedisPassword(cfg.Session.Password),
+		session.OptionsRetryCount(cfg.Session.RetryCount),
+		session.OptionsRetryInterval(cfg.Session.RetryInterval),
+		session.OptionFilePath(cfg.Session.FilePath),
+		session.OptionFileSize(cfg.Session.FileSize),
+		session.OptionLifetime(cfg.Session.Lifetime),
+		session.OptionIdleTimeout(cfg.Session.IdleTimeout),
+		session.OptionName(cfg.Session.Name),
+		session.OptionPersist(cfg.Session.Persist),
+		session.OptionSecure(isSecure),
 	)
 }

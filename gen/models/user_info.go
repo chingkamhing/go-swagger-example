@@ -22,6 +22,9 @@ type UserInfo struct {
 	// deleted
 	Deleted *bool `json:"deleted,omitempty" db:"Deleted"`
 
+	// password
+	Password string `json:"password,omitempty" db:"Password"`
+
 	// phone
 	Phone string `json:"phone,omitempty" db:"Phone"`
 

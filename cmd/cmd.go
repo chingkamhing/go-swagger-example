@@ -23,7 +23,7 @@ var rootCmd = &cobra.Command{
 func init() {
 	rootCmd.PersistentFlags().String("config", defaultConfigFile, "config file")
 	rootCmd.PersistentFlags().String("database.accounts", "", "DBAccounts web config string (note: this has higher precedence than other database settings)")
-	rootCmd.PersistentFlags().String("database.driver", "mssql", "Database driver of: mssql")
+	rootCmd.PersistentFlags().String("database.driver", "mysql", "Database driver of: mysql")
 	rootCmd.PersistentFlags().String("database.host", "localhost", "Database host string")
 	rootCmd.PersistentFlags().Int("database.port", 1433, "Database port")
 	rootCmd.PersistentFlags().String("database.name", "QPAccountsDB", "Database name")

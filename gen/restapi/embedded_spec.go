@@ -170,6 +170,11 @@ func init() {
           "x-go-custom-tag": "db:\"Deleted\"",
           "x-nullable": true
         },
+        "password": {
+          "type": "string",
+          "x-go-custom-tag": "db:\"Password\"",
+          "x-nullable": false
+        },
         "phone": {
           "type": "string",
           "x-go-custom-tag": "db:\"Phone\"",
@@ -349,6 +354,11 @@ func init() {
           "type": "boolean",
           "x-go-custom-tag": "db:\"Deleted\"",
           "x-nullable": true
+        },
+        "password": {
+          "type": "string",
+          "x-go-custom-tag": "db:\"Password\"",
+          "x-nullable": false
         },
         "phone": {
           "type": "string",
