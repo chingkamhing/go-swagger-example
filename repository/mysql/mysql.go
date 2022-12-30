@@ -13,7 +13,7 @@ type repo struct {
 	//FIXME
 }
 
-var allUsers = map[string]*models.UserAccount{
+var allUsers = map[string]models.UserAccount{
 	"admin": {
 		ID:         1,
 		FirstName:  "Administrator",
@@ -46,5 +46,7 @@ func (r *repo) GetUserByUsername(username string) (*models.UserAccount, error) {
 	if !ok {
 		return nil, fmt.Errorf("username %q not found", username)
 	}
-	return user, nil
+	userLogin := *user.UserLogin
+	user.UserLogin = &userLogin
+	return &user, nil
 }
