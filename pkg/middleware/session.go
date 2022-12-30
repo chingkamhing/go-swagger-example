@@ -5,6 +5,8 @@ import (
 	"strings"
 
 	"go-swagger-example/pkg/session"
+
+	"github.com/go-openapi/errors"
 )
 
 // CookieTokenFunc is a SessionSecurityAuth callback function that act as middleware that get user info base on the token
@@ -23,7 +25,7 @@ func CookieTokenFunc(sessionUser *session.Session) func(token string) (interface
 				return principal, nil
 			}
 		}
-		return nil, fmt.Errorf("invalid cookie name")
+		return nil, errors.Unauthenticated("invalid cookie name")
 	}
 }
 
