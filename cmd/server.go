@@ -11,6 +11,7 @@ import (
 
 	"go-swagger-example/cmd/server"
 	"go-swagger-example/config"
+	"go-swagger-example/logger"
 )
 
 // Web cli command settings
@@ -75,8 +76,10 @@ func init() {
 func runServer(cmd *cobra.Command, args []string) {
 	fx.New(
 		fx.Supply(cmd),
-		fx.Provide(ProvideSugaredLogger),
-		fx.Provide(ProvideLogger),
+		fx.Provide(
+			ProvideSugaredLogger,
+			fx.Annotate(ProvideSugaredLogger, fx.As(new(logger.Logger))),
+		),
 		config.Module,
 		server.Module,
 	).Run()

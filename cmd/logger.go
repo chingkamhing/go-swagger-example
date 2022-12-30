@@ -20,8 +20,3 @@ func ProvideSugaredLogger(cfg *config.Configuration) (*zap.SugaredLogger, error)
 	}
 	return log, nil
 }
-
-// setup log output
-func ProvideLogger(log *zap.SugaredLogger) logger.Logger {
-	return log
-}
