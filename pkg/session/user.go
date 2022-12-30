@@ -10,7 +10,7 @@ import (
 )
 
 // user's session key name
-const userKey = "user"
+const userKey = "UserSession"
 
 func init() {
 	// gob register models.User in order to support context decode
