@@ -160,7 +160,12 @@ func init() {
         "deleted": {
           "type": "boolean",
           "x-go-custom-tag": "db:\"Deleted\"",
-          "x-nullable": true
+          "x-nullable": false
+        },
+        "name": {
+          "type": "string",
+          "x-go-custom-tag": "db:\"Name\"",
+          "x-nullable": false
         },
         "password": {
           "type": "string",
@@ -337,7 +342,12 @@ func init() {
         "deleted": {
           "type": "boolean",
           "x-go-custom-tag": "db:\"Deleted\"",
-          "x-nullable": true
+          "x-nullable": false
+        },
+        "name": {
+          "type": "string",
+          "x-go-custom-tag": "db:\"Name\"",
+          "x-nullable": false
         },
         "password": {
           "type": "string",

@@ -110,6 +110,10 @@ definitions:
         type: string
         x-nullable: false
         x-go-custom-tag: 'db:"Username"'
+      name:
+        type: string
+        x-nullable: false
+        x-go-custom-tag: 'db:"Name"'
       phone:
         type: string
         x-nullable: false
@@ -120,7 +124,7 @@ definitions:
         x-go-custom-tag: 'db:"Password"'
       deleted:
         type: boolean
-        x-nullable: true
+        x-nullable: false
         x-go-custom-tag: 'db:"Deleted"'
   Error:
     type: object

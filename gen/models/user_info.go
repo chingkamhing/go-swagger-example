@@ -20,7 +20,10 @@ import (
 type UserInfo struct {
 
 	// deleted
-	Deleted *bool `json:"deleted,omitempty" db:"Deleted"`
+	Deleted bool `json:"deleted,omitempty" db:"Deleted"`
+
+	// name
+	Name string `json:"name,omitempty" db:"Name"`
 
 	// password
 	Password string `json:"password,omitempty" db:"Password"`

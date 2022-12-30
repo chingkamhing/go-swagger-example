@@ -16,6 +16,7 @@ type repo struct {
 var allUsers = map[string]*models.UserInfo{
 	"admin": {
 		Username: "admin",
+		Name:     "Administrator",
 		Phone:    "1234-5678",
 		Password: "$2a$10$T1OYJNv6d3iG.GCEFOUum.8smP.Ynb3UY6Qoxulz2pnPUf/wxCkIy",
 	},
