@@ -26,7 +26,7 @@ type MyselfOK struct {
 	/*
 	  In: Body
 	*/
-	Payload *models.UserInfo `json:"body,omitempty"`
+	Payload *models.UserAccount `json:"body,omitempty"`
 }
 
 // NewMyselfOK creates MyselfOK with default headers values
@@ -36,13 +36,13 @@ func NewMyselfOK() *MyselfOK {
 }
 
 // WithPayload adds the payload to the myself o k response
-func (o *MyselfOK) WithPayload(payload *models.UserInfo) *MyselfOK {
+func (o *MyselfOK) WithPayload(payload *models.UserAccount) *MyselfOK {
 	o.Payload = payload
 	return o
 }
 
 // SetPayload sets the payload to the myself o k response
-func (o *MyselfOK) SetPayload(payload *models.UserInfo) {
+func (o *MyselfOK) SetPayload(payload *models.UserAccount) {
 	o.Payload = payload
 }
 

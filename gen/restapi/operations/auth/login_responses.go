@@ -26,7 +26,7 @@ type LoginOK struct {
 	/*
 	  In: Body
 	*/
-	Payload *models.UserInfo `json:"body,omitempty"`
+	Payload *models.UserAccount `json:"body,omitempty"`
 }
 
 // NewLoginOK creates LoginOK with default headers values
@@ -36,13 +36,13 @@ func NewLoginOK() *LoginOK {
 }
 
 // WithPayload adds the payload to the login o k response
-func (o *LoginOK) WithPayload(payload *models.UserInfo) *LoginOK {
+func (o *LoginOK) WithPayload(payload *models.UserAccount) *LoginOK {
 	o.Payload = payload
 	return o
 }
 
 // SetPayload sets the payload to the login o k response
-func (o *LoginOK) SetPayload(payload *models.UserInfo) {
+func (o *LoginOK) SetPayload(payload *models.UserAccount) {
 	o.Payload = payload
 }
 

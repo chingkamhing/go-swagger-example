@@ -27,7 +27,7 @@ func NewUserMyself(repo repository.Interfaces, log logger.Logger) user.MyselfHan
 
 // Handle is user.Myself handler that handle user login
 func (h *userMyself) Handle(params user.MyselfParams, principal interface{}) middleware.Responder {
-	userInfo, ok := principal.(*models.UserInfo)
+	userInfo, ok := principal.(*models.UserAccount)
 	if ok != true {
 		h.log.Errorf("invalid principal")
 		return user.NewMyselfDefault(http.StatusBadRequest).WithPayload(&models.Error{

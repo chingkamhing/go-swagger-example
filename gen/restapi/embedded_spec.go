@@ -57,7 +57,7 @@ func init() {
           "200": {
             "description": "Success, return user's detail info",
             "schema": {
-              "$ref": "#/definitions/UserInfo"
+              "$ref": "#/definitions/UserAccount"
             }
           },
           "default": {
@@ -100,7 +100,7 @@ func init() {
           "200": {
             "description": "Success, return user's detail info",
             "schema": {
-              "$ref": "#/definitions/UserInfo"
+              "$ref": "#/definitions/UserAccount"
             }
           },
           "default": {
@@ -150,39 +150,111 @@ func init() {
         }
       }
     },
-    "UserInfo": {
-      "description": "User info",
+    "UserAccount": {
+      "description": "User account information",
       "type": "object",
-      "required": [
-        "username"
-      ],
       "properties": {
-        "deleted": {
-          "type": "boolean",
-          "x-go-custom-tag": "db:\"Deleted\"",
+        "auditModel": {
+          "x-go-type": {
+            "hints": {
+              "noValidation": true
+            },
+            "import": {
+              "package": "go-swagger-example/mymodels"
+            },
+            "type": "AuditModel"
+          }
+        },
+        "department": {
+          "type": "string",
           "x-nullable": false
         },
-        "name": {
+        "firstName": {
           "type": "string",
-          "x-go-custom-tag": "db:\"Name\"",
           "x-nullable": false
         },
-        "password": {
-          "type": "string",
-          "x-go-custom-tag": "db:\"Password\"",
+        "gormModel": {
+          "x-go-type": {
+            "hints": {
+              "noValidation": true
+            },
+            "import": {
+              "package": "go-swagger-example/mymodels"
+            },
+            "type": "GormModel"
+          }
+        },
+        "id": {
+          "type": "integer",
+          "format": "uint32",
           "x-nullable": false
         },
-        "phone": {
+        "lastLoginTime": {
+          "type": "object",
+          "x-go-type": {
+            "hints": {
+              "noValidation": true
+            },
+            "import": {
+              "package": "gopkg.in/guregu/null.v4"
+            },
+            "type": "Time"
+          }
+        },
+        "lastName": {
           "type": "string",
-          "x-go-custom-tag": "db:\"Phone\"",
           "x-nullable": false
         },
-        "username": {
-          "type": "string",
-          "x-go-custom-tag": "db:\"Username\"",
-          "x-nullable": false
+        "userLogin": {
+          "type": "object",
+          "$ref": "#/definitions/UserLogin"
         }
       }
+    },
+    "UserLogin": {
+      "description": "User login information",
+      "type": "object",
+      "properties": {
+        "auditModel": {
+          "x-go-type": {
+            "hints": {
+              "noValidation": true
+            },
+            "import": {
+              "package": "go-swagger-example/mymodels"
+            },
+            "type": "AuditModel"
+          }
+        },
+        "email": {
+          "type": "string",
+          "x-omitempty": false
+        },
+        "gormModel": {
+          "x-go-type": {
+            "hints": {
+              "noValidation": true
+            },
+            "import": {
+              "package": "go-swagger-example/mymodels"
+            },
+            "type": "GormModel"
+          }
+        },
+        "loginName": {
+          "type": "string",
+          "x-omitempty": false
+        },
+        "passwordHash": {
+          "type": "string",
+          "x-omitempty": false
+        },
+        "userId": {
+          "type": "integer",
+          "format": "uint32"
+        }
+      },
+      "x-go-custom-tag": "gorm:\"foreignkey:UserID;references:id\""
     }
   },
   "securityDefinitions": {
@@ -239,7 +311,7 @@ func init() {
           "200": {
             "description": "Success, return user's detail info",
             "schema": {
-              "$ref": "#/definitions/UserInfo"
+              "$ref": "#/definitions/UserAccount"
             }
           },
           "default": {
@@ -282,7 +354,7 @@ func init() {
           "200": {
             "description": "Success, return user's detail info",
             "schema": {
-              "$ref": "#/definitions/UserInfo"
+              "$ref": "#/definitions/UserAccount"
             }
           },
           "default": {
@@ -332,39 +404,111 @@ func init() {
         }
       }
     },
-    "UserInfo": {
-      "description": "User info",
+    "UserAccount": {
+      "description": "User account information",
       "type": "object",
-      "required": [
-        "username"
-      ],
       "properties": {
-        "deleted": {
-          "type": "boolean",
-          "x-go-custom-tag": "db:\"Deleted\"",
+        "auditModel": {
+          "x-go-type": {
+            "hints": {
+              "noValidation": true
+            },
+            "import": {
+              "package": "go-swagger-example/mymodels"
+            },
+            "type": "AuditModel"
+          }
+        },
+        "department": {
+          "type": "string",
           "x-nullable": false
         },
-        "name": {
+        "firstName": {
           "type": "string",
-          "x-go-custom-tag": "db:\"Name\"",
           "x-nullable": false
         },
-        "password": {
-          "type": "string",
-          "x-go-custom-tag": "db:\"Password\"",
+        "gormModel": {
+          "x-go-type": {
+            "hints": {
+              "noValidation": true
+            },
+            "import": {
+              "package": "go-swagger-example/mymodels"
+            },
+            "type": "GormModel"
+          }
+        },
+        "id": {
+          "type": "integer",
+          "format": "uint32",
           "x-nullable": false
         },
-        "phone": {
+        "lastLoginTime": {
+          "type": "object",
+          "x-go-type": {
+            "hints": {
+              "noValidation": true
+            },
+            "import": {
+              "package": "gopkg.in/guregu/null.v4"
+            },
+            "type": "Time"
+          }
+        },
+        "lastName": {
           "type": "string",
-          "x-go-custom-tag": "db:\"Phone\"",
           "x-nullable": false
         },
-        "username": {
-          "type": "string",
-          "x-go-custom-tag": "db:\"Username\"",
-          "x-nullable": false
+        "userLogin": {
+          "type": "object",
+          "$ref": "#/definitions/UserLogin"
         }
       }
+    },
+    "UserLogin": {
+      "description": "User login information",
+      "type": "object",
+      "properties": {
+        "auditModel": {
+          "x-go-type": {
+            "hints": {
+              "noValidation": true
+            },
+            "import": {
+              "package": "go-swagger-example/mymodels"
+            },
+            "type": "AuditModel"
+          }
+        },
+        "email": {
+          "type": "string",
+          "x-omitempty": false
+        },
+        "gormModel": {
+          "x-go-type": {
+            "hints": {
+              "noValidation": true
+            },
+            "import": {
+              "package": "go-swagger-example/mymodels"
+            },
+            "type": "GormModel"
+          }
+        },
+        "loginName": {
+          "type": "string",
+          "x-omitempty": false
+        },
+        "passwordHash": {
+          "type": "string",
+          "x-omitempty": false
+        },
+        "userId": {
+          "type": "integer",
+          "format": "uint32"
+        }
+      },
+      "x-go-custom-tag": "gorm:\"foreignkey:UserID;references:id\""
     }
   },
   "securityDefinitions": {

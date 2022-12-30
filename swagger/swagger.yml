@@ -1,7 +1,7 @@
 ---
 swagger: "2.0"
 info:
-  version: 1.0.0
+  version: 0.0.1
   title: Example application
   description: Example application server
 consumes:
@@ -43,7 +43,7 @@ paths:
         200:
           description: Success, return user's detail info
           schema:
-            $ref: "#/definitions/UserInfo"
+            $ref: "#/definitions/UserAccount"
         default:
           description: Error
           schema:
@@ -80,7 +80,7 @@ paths:
         200:
           description: Success, return user's detail info
           schema:
-            $ref: "#/definitions/UserInfo"
+            $ref: "#/definitions/UserAccount"
         default:
           description: Error
           schema:
@@ -100,32 +100,79 @@ definitions:
       password:
         type: string
         x-nullable: false
-  UserInfo:
-    description: User info
+  UserAccount:
+    description: User account information
     type: object
-    required:
-      - username
     properties:
-      username:
+      id:
+        type: integer
+        format: uint32
+        x-nullable: false
+      firstName:
         type: string
         x-nullable: false
-        x-go-custom-tag: 'db:"Username"'
-      name:
+      lastName:
         type: string
         x-nullable: false
-        x-go-custom-tag: 'db:"Name"'
-      phone:
+      department:
         type: string
         x-nullable: false
-        x-go-custom-tag: 'db:"Phone"'
-      password:
+      lastLoginTime:
+        type: object
+        x-go-type:
+          type: Time
+          import:
+            package: gopkg.in/guregu/null.v4
+          hints:
+            noValidation: true
+      userLogin:
+        type: object
+        $ref: "#/definitions/UserLogin"
+      gormModel:
+        x-go-type:
+          type: GormModel
+          import:
+            package: go-swagger-example/mymodels
+          hints:
+            noValidation: true
+      auditModel:
+        x-go-type:
+          type: AuditModel
+          import:
+            package: go-swagger-example/mymodels
+          hints:
+            noValidation: true
+  UserLogin:
+    description: User login information
+    type: object
+    x-go-custom-tag: 'gorm:"foreignkey:UserID;references:id"'
+    properties:
+      userId:
+        type: integer
+        format: uint32
+      loginName:
         type: string
-        x-nullable: false
-        x-go-custom-tag: 'db:"Password"'
-      deleted:
-        type: boolean
-        x-nullable: false
-        x-go-custom-tag: 'db:"Deleted"'
+        x-omitempty: false
+      passwordHash:
+        type: string
+        x-omitempty: false
+      email:
+        type: string
+        x-omitempty: false
+      gormModel:
+        x-go-type:
+          type: GormModel
+          import:
+            package: go-swagger-example/mymodels
+          hints:
+            noValidation: true
+      auditModel:
+        x-go-type:
+          type: AuditModel
+          import:
+            package: go-swagger-example/mymodels
+          hints:
+            noValidation: true
   Error:
     type: object
     required:

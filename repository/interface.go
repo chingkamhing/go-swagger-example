@@ -12,6 +12,6 @@ type Interfaces interface {
 	Close() error
 
 	// User APIs
-	GetUserByUsername(username string) (*models.UserInfo, error)
+	GetUserByUsername(username string) (*models.UserAccount, error)
 	//FIXME
 }

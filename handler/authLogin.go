@@ -38,14 +38,14 @@ func (h *authLogin) Handle(params auth.LoginParams) middleware.Responder {
 		return loginDefaultError(h, http.StatusBadRequest, "user not found", err)
 	}
 	// compare the request's password to the one in database
-	isPasswordValid := comparePassword(params.Body.Password, user.Password)
+	isPasswordValid := comparePassword(params.Body.Password, user.UserLogin.PasswordHash)
 	if !isPasswordValid {
 		return loginDefaultError(h, http.StatusUnauthorized, "invalid password", err)
 	}
 	// valid user, save the user info into user session and response OK
 	h.log.Infof("User %q login at %v", params.Body.Username, time.Now())
 	// remove the password for security reason
-	user.Password = ""
+	user.UserLogin.PasswordHash = ""
 	// renew session's token after login for security reason
 	err = h.sessionUser.RenewToken(params.HTTPRequest.Context())
 	if err != nil {

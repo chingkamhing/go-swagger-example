@@ -25,6 +25,9 @@ require (
 	go.uber.org/zap v1.24.0
 	golang.org/x/crypto v0.4.0
 	golang.org/x/net v0.4.0
+	gopkg.in/guregu/null.v4 v4.0.0
+	gorm.io/gorm v1.24.2
+	gorm.io/plugin/soft_delete v1.2.0
 )
 
 require (
@@ -42,6 +45,8 @@ require (
 	github.com/google/uuid v1.3.0 // indirect
 	github.com/hashicorp/hcl v1.0.0 // indirect
 	github.com/inconshreveable/mousetrap v1.1.0 // indirect
+	github.com/jinzhu/inflection v1.0.0 // indirect
+	github.com/jinzhu/now v1.1.5 // indirect
 	github.com/josharian/intern v1.0.0 // indirect
 	github.com/kr/pretty v0.3.1 // indirect
 	github.com/magiconair/properties v1.8.7 // indirect

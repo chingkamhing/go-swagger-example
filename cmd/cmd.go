@@ -26,7 +26,7 @@ func init() {
 	rootCmd.PersistentFlags().String("database.driver", "mysql", "Database driver of: mysql")
 	rootCmd.PersistentFlags().String("database.host", "localhost", "Database host string")
 	rootCmd.PersistentFlags().Int("database.port", 1433, "Database port")
-	rootCmd.PersistentFlags().String("database.name", "QPAccountsDB", "Database name")
+	rootCmd.PersistentFlags().String("database.name", "ExampleDB", "Database name")
 	rootCmd.PersistentFlags().String("database.user", "", "Database user name")
 	rootCmd.PersistentFlags().String("database.password", "", "Database password")
 	rootCmd.PersistentFlags().Int("database.retry", 10, "Database connection retry count")

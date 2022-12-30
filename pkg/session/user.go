@@ -16,18 +16,18 @@ const userKey = "UserSession"
 
 func init() {
 	// gob register models.User in order to support context decode
-	gob.Register(&models.UserInfo{})
+	gob.Register(&models.UserAccount{})
 }
 
 // SaveUser save user info
-func (s *Session) SaveUser(user *models.UserInfo, r *http.Request) {
+func (s *Session) SaveUser(user *models.UserAccount, r *http.Request) {
 	s.sessionManager.Put(r.Context(), userKey, user)
 }
 
 // GetUser get user info
-func (s *Session) GetUser(ctx context.Context) (user *models.UserInfo, err error) {
+func (s *Session) GetUser(ctx context.Context) (user *models.UserAccount, err error) {
 	any := s.sessionManager.Get(ctx, userKey)
-	user, ok := any.(*models.UserInfo)
+	user, ok := any.(*models.UserAccount)
 	if !ok {
 		return nil, errors.Unauthenticated("invalid usser session")
 	}
@@ -40,7 +40,7 @@ func (s *Session) RemoveUser(r *http.Request) {
 }
 
 // GetCookieUser get cookie's user info
-func (s *Session) GetCookieUser(token string) (user *models.UserInfo, err error) {
+func (s *Session) GetCookieUser(token string) (user *models.UserAccount, err error) {
 	ctx := context.TODO()
 	ctx, err = s.sessionManager.Load(ctx, token)
 	if err != nil {
