@@ -46,7 +46,6 @@ model:
 regenerate: clean generate
 
 # clean all the binary and the generated code
-# note: leave restapi/configure_telesales_admin.go untouch as it is supposed to be customized by user
 .PHONY: clean
 clean:
 	# remove all the generated sources that can be re-generated with the swagger.yml file
