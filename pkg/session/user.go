@@ -24,8 +24,8 @@ func (s *Session) SaveUser(user *models.UserInfo, r *http.Request) {
 
 // GetUser get user info
 func (s *Session) GetUser(r *http.Request) (user *models.UserInfo, err error) {
-	telesalesInterface := s.sessionManager.Get(r.Context(), userKey)
-	user, ok := telesalesInterface.(*models.UserInfo)
+	any := s.sessionManager.Get(r.Context(), userKey)
+	user, ok := any.(*models.UserInfo)
 	if !ok {
 		return nil, fmt.Errorf("invalid user session")
 	}
@@ -44,8 +44,8 @@ func (s *Session) GetCookieUser(token string) (user *models.UserInfo, err error)
 	if err != nil {
 		return nil, err
 	}
-	telesalesInterface := s.sessionManager.Get(ctx, userKey)
-	user, ok := telesalesInterface.(*models.UserInfo)
+	any := s.sessionManager.Get(ctx, userKey)
+	user, ok := any.(*models.UserInfo)
 	if !ok {
 		return nil, fmt.Errorf("invalid user session")
 	}
