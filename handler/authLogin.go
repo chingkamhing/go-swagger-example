@@ -47,11 +47,11 @@ func (h *authLogin) Handle(params auth.LoginParams) middleware.Responder {
 	// remove the password for security reason
 	user.Password = ""
 	// renew session's token after login for security reason
-	// err = h.sessionUser.RenewToken(params.HTTPRequest.Context())
-	// if err != nil {
-	// 	return loginDefaultError(h, http.StatusInternalServerError, "fail to renew session", err)
-	// }
-	// h.sessionUser.SaveUser(user, params.HTTPRequest)
+	err = h.sessionUser.RenewToken(params.HTTPRequest.Context())
+	if err != nil {
+		return loginDefaultError(h, http.StatusInternalServerError, "fail to renew session", err)
+	}
+	h.sessionUser.SaveUser(user, params.HTTPRequest)
 	return auth.NewLoginOK().WithPayload(user)
 }
 

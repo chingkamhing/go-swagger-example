@@ -75,6 +75,7 @@ func InvokeHttpServer(lifecycle fx.Lifecycle, cfg *config.Configuration, zapLog 
 		middleware.RealIP,
 		middleware.Recoverer,
 		middleware.Compress(cfg.Server.CompressLevel),
+		sessionUser.SessionMiddleware,
 	).Then(api.Serve(nil))
 	server.SetHandler(handler)
 
