@@ -23,8 +23,8 @@ func (s *Session) SaveUser(user *models.UserInfo, r *http.Request) {
 }
 
 // GetUser get user info
-func (s *Session) GetUser(r *http.Request) (user *models.UserInfo, err error) {
-	any := s.sessionManager.Get(r.Context(), userKey)
+func (s *Session) GetUser(ctx context.Context) (user *models.UserInfo, err error) {
+	any := s.sessionManager.Get(ctx, userKey)
 	user, ok := any.(*models.UserInfo)
 	if !ok {
 		return nil, fmt.Errorf("invalid user session")
@@ -42,12 +42,7 @@ func (s *Session) GetCookieUser(token string) (user *models.UserInfo, err error)
 	ctx := context.TODO()
 	ctx, err = s.sessionManager.Load(ctx, token)
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("fail to load user session: %w", err)
 	}
-	any := s.sessionManager.Get(ctx, userKey)
-	user, ok := any.(*models.UserInfo)
-	if !ok {
-		return nil, fmt.Errorf("invalid user session")
-	}
-	return user, nil
+	return s.GetUser(ctx)
 }
