@@ -93,19 +93,12 @@ definitions:
     required:
       - username
       - password
-      - imageCode
     properties:
       username:
         type: string
-        minLength: 6
         x-nullable: false
       password:
         type: string
-        minLength: 6
-        x-nullable: false
-      imageCode:
-        type: string
-        minLength: 4
         x-nullable: false
   UserInfo:
     description: User info

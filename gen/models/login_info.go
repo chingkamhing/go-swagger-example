@@ -19,29 +19,18 @@ import (
 // swagger:model LoginInfo
 type LoginInfo struct {
 
-	// image code
-	// Required: true
-	// Min Length: 4
-	ImageCode string `json:"imageCode"`
-
 	// password
 	// Required: true
-	// Min Length: 6
 	Password string `json:"password"`
 
 	// username
 	// Required: true
-	// Min Length: 6
 	Username string `json:"username"`
 }
 
 // Validate validates this login info
 func (m *LoginInfo) Validate(formats strfmt.Registry) error {
 	var res []error
-
-	if err := m.validateImageCode(formats); err != nil {
-		res = append(res, err)
-	}
 
 	if err := m.validatePassword(formats); err != nil {
 		res = append(res, err)
@@ -57,26 +46,9 @@ func (m *LoginInfo) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *LoginInfo) validateImageCode(formats strfmt.Registry) error {
-
-	if err := validate.RequiredString("imageCode", "body", m.ImageCode); err != nil {
-		return err
-	}
-
-	if err := validate.MinLength("imageCode", "body", m.ImageCode, 4); err != nil {
-		return err
-	}
-
-	return nil
-}
-
 func (m *LoginInfo) validatePassword(formats strfmt.Registry) error {
 
 	if err := validate.RequiredString("password", "body", m.Password); err != nil {
-		return err
-	}
-
-	if err := validate.MinLength("password", "body", m.Password, 6); err != nil {
 		return err
 	}
 
@@ -86,10 +58,6 @@ func (m *LoginInfo) validatePassword(formats strfmt.Registry) error {
 func (m *LoginInfo) validateUsername(formats strfmt.Registry) error {
 
 	if err := validate.RequiredString("username", "body", m.Username); err != nil {
-		return err
-	}
-
-	if err := validate.MinLength("username", "body", m.Username, 6); err != nil {
 		return err
 	}
 

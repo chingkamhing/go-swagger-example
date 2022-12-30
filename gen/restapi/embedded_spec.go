@@ -137,23 +137,15 @@ func init() {
       "type": "object",
       "required": [
         "username",
-        "password",
-        "imageCode"
+        "password"
       ],
       "properties": {
-        "imageCode": {
-          "type": "string",
-          "minLength": 4,
-          "x-nullable": false
-        },
         "password": {
           "type": "string",
-          "minLength": 6,
           "x-nullable": false
         },
         "username": {
           "type": "string",
-          "minLength": 6,
           "x-nullable": false
         }
       }
@@ -322,23 +314,15 @@ func init() {
       "type": "object",
       "required": [
         "username",
-        "password",
-        "imageCode"
+        "password"
       ],
       "properties": {
-        "imageCode": {
-          "type": "string",
-          "minLength": 4,
-          "x-nullable": false
-        },
         "password": {
           "type": "string",
-          "minLength": 6,
           "x-nullable": false
         },
         "username": {
           "type": "string",
-          "minLength": 6,
           "x-nullable": false
         }
       }

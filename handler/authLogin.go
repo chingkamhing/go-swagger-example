@@ -1,13 +1,11 @@
 package handler
 
 import (
-	"crypto/md5"
-	"fmt"
-	"io"
 	"net/http"
 	"time"
 
 	"github.com/go-openapi/runtime/middleware"
+	"golang.org/x/crypto/bcrypt"
 
 	"go-swagger-example/gen/models"
 	"go-swagger-example/gen/restapi/operations/auth"
@@ -45,30 +43,27 @@ func (h *authLogin) Handle(params auth.LoginParams) middleware.Responder {
 		return loginDefaultError(h, http.StatusUnauthorized, "invalid password", err)
 	}
 	// valid user, save the user info into user session and response OK
-	h.log.Infof("Telesales %q login at %v", params.Body.Username, time.Now())
+	h.log.Infof("User %q login at %v", params.Body.Username, time.Now())
 	// remove the password for security reason
 	user.Password = ""
 	// renew session's token after login for security reason
-	err = h.sessionUser.RenewToken(params.HTTPRequest.Context())
-	if err != nil {
-		return loginDefaultError(h, http.StatusInternalServerError, "fail to renew session", err)
-	}
-	h.sessionUser.SaveUser(user, params.HTTPRequest)
+	// err = h.sessionUser.RenewToken(params.HTTPRequest.Context())
+	// if err != nil {
+	// 	return loginDefaultError(h, http.StatusInternalServerError, "fail to renew session", err)
+	// }
+	// h.sessionUser.SaveUser(user, params.HTTPRequest)
 	return auth.NewLoginOK().WithPayload(user)
 }
 
 // comparePassword compare input password against the password in database
 func comparePassword(password string, against string) bool {
-	// should hash the password instead of using plain letter as password
-	hash := md5.New()
-	io.WriteString(hash, password)
-	hashStr := fmt.Sprintf("%X", hash.Sum(nil))
-	return hashStr == against
+	err := bcrypt.CompareHashAndPassword([]byte(against), []byte(password))
+	return err == nil
 }
 
 // loginDefaultError is a helper function to return default error
 func loginDefaultError(h *authLogin, code int, message string, err error) *auth.LoginDefault {
-	h.log.Errorf("%s: %v", message, err)
+	h.log.Infof("%s: %v", message, err)
 	return auth.NewLoginDefault(code).WithPayload(&models.Error{
 		Code:    int32(code),
 		Message: message,
