@@ -89,6 +89,7 @@ func InvokeHttpServer(lifecycle fx.Lifecycle, cfg *config.Configuration, zapLog 
 			},
 			OnStop: func(ctx context.Context) error {
 				err := server.Shutdown()
+				sessionUser.Close()
 				log.Infof("Server http shutdown: %v", err)
 				zapLog.Sync()
 				return nil

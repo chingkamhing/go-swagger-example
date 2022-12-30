@@ -124,9 +124,9 @@ func NewSession(log logger.Logger, optionFunctions ...OptionFunc) *Session {
 }
 
 // close save login user of models.User to session manager
-func (s *Session) close() {
+func (s *Session) Close() {
 	if s.dbBadger != nil {
-		// xlose badger db
+		// close badger db
 		s.dbBadger.Close()
 	}
 	if s.pool != nil {
