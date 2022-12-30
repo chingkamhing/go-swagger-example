@@ -7,7 +7,7 @@ import (
 	"go-swagger-example/pkg/session"
 )
 
-// CookieTokenFunc is a SessionSecurityAuth callback function that act as middleware that get telesales info base on the token
+// CookieTokenFunc is a SessionSecurityAuth callback function that act as middleware that get user info base on the token
 // note: this might double the effort to get cookie's info with sessionUser.SessionMiddleware
 func CookieTokenFunc(sessionUser *session.Session) func(token string) (interface{}, error) {
 	return func(token string) (interface{}, error) {
