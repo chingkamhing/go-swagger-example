@@ -2,8 +2,6 @@ package cmd
 
 import (
 	"fmt"
-	"os"
-	"path/filepath"
 	"time"
 
 	"github.com/spf13/cobra"
@@ -22,7 +20,7 @@ var cmdServer = &cobra.Command{
 }
 
 func init() {
-	basename := filepath.Base(os.Args[0])
+	basename := name
 	// add local parameter
 	cmdServer.Flags().StringSlice("server.schemes", []string{"http", "https"}, "comma-seperated schemes to enable: http, https, unix")
 	cmdServer.Flags().Duration("server.cleanup-timeout", time.Duration(10*time.Second), "grace period for which to wait before killing idle connections")
@@ -46,9 +44,6 @@ func init() {
 	cmdServer.Flags().Duration("server.tls-write-timeout", time.Duration(60*time.Second), "maximum duration before timing out write of the response")
 	cmdServer.Flags().String("server.static-path", "dist", "static file server root path")
 	cmdServer.Flags().Int("server.compress-level", 5, "maximum duration before timing out write of the response")
-
-	cmdServer.Flags().Int("top.number", 100, "Number of top telesales to track")
-	cmdServer.Flags().Duration("top.interval", time.Duration(10*time.Minute), "Cron job interval in second to poll the top telesales promotion status")
 
 	cmdServer.Flags().Duration("session.life-time", time.Duration(180*time.Minute), "session life time")
 	cmdServer.Flags().Duration("session.idle-timeout", time.Duration(60*time.Minute), "session idle timeout")

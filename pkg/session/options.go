@@ -32,7 +32,7 @@ var defaultOptions = options{
 	fileSize:      0,
 	lifetime:      time.Duration(180 * time.Second),
 	idleTimeout:   time.Duration(60 * time.Second),
-	name:          "telesalesd",
+	name:          "my-session-name",
 	httpOnly:      true,
 	persist:       true,
 	secure:        true,

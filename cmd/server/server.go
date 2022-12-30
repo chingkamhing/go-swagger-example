@@ -15,6 +15,7 @@ import (
 	"go-swagger-example/gen/restapi/operations"
 	"go-swagger-example/handler"
 	"go-swagger-example/logger"
+	myMiddleware "go-swagger-example/pkg/middleware"
 	"go-swagger-example/pkg/session"
 	"go-swagger-example/repository"
 )
@@ -68,6 +69,7 @@ func InvokeHttpServer(lifecycle fx.Lifecycle, cfg *config.Configuration, zapLog 
 	api.AuthLoginHandler = handler.NewAuthLogin(repo, log, sessionUser)
 	api.AuthLogoutHandler = handler.NewAuthLogout(log, sessionUser)
 	api.UserMyselfHandler = handler.NewUserMyself(repo, log)
+	api.SessionSecurityAuth = myMiddleware.CookieTokenFunc(sessionUser)
 	server.SetAPI(api)
 
 	// setup middleware

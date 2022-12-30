@@ -1,18 +1,15 @@
 #!/bin/bash
 #
-# Script file to use curl command to login to wk-api. Upon successful login, it will response access token which can then be used as authen token for other authen restful api access.
-# e.g.
-# $ export TOKEN=$(./script/login.sh kamching password1234 | jq .data.access_token | tr -d '"')
-# $ ./script/get-user.sh 2 | jq .
+# Script file to use curl command to get current user's info.
 #
 
 URL="${URL:-"http://127.0.0.1"}"
 PORT="${PORT:-"8000"}"
-METHOD="POST"
-ENDPOINT='api/auth/login'
+METHOD="GET"
+ENDPOINT='api/user/myself'
 FILE_COOKIE=".cookie"
 OPTS="-s"
-NUM_ARGS=2
+NUM_ARGS=0
 DEBUG=""
 
 # Function
@@ -20,10 +17,7 @@ SCRIPT_NAME=${0##*/}
 Usage () {
 	echo
 	echo "Description:"
-	echo "Script file to use curl command to login to wk-api. Upon successful login, it will response access token which can then be used as authen token for other authen restful api access."
-	echo "e.g."
-	echo $'$ export TOKEN=$(./script/login.sh kamching password1234 | jq .data.access_token | tr -d \'"\')'
-	echo '$ ./script/get-user.sh 2 | jq .'
+	echo "Script file to use curl command to get current user's info."
 	echo
 	echo "Usage: $SCRIPT_NAME [username] [password]"
 	echo "Options:"
@@ -79,15 +73,8 @@ else
 	URL="$(echo -e "${URL}:${PORT}" | sed -e 's/\/*$//')"
 fi
 
-USERNAME=$1
-PASSWORD=$2
-
 # perform curl
-$DEBUG curl $OPTS -d \
-	"{ \
-		\"username\": \"$USERNAME\", \
-		\"password\": \"$PASSWORD\" \
-	}" \
+$DEBUG curl $OPTS \
 	-X $METHOD \
 	--cookie-jar $FILE_COOKIE \
 	--cookie $FILE_COOKIE \
