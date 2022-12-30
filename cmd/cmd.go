@@ -13,7 +13,7 @@ const defaultConfigFile string = "config.yaml" // default config yaml file
 
 var rootCmd = &cobra.Command{
 	Use:   "",
-	Short: "Telesales Admin Web Server",
+	Short: "Web Server",
 	Run: func(cmd *cobra.Command, args []string) {
 		// default command
 		cmd.Usage()

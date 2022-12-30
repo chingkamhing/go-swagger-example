@@ -15,7 +15,7 @@ import (
 // Web cli command settings
 var cmdServer = &cobra.Command{
 	Use:   "server",
-	Short: "Start Telesales Admin Web Server",
+	Short: "Start Web Server",
 	Run:   runServer,
 }
 
@@ -67,7 +67,6 @@ func init() {
 	rootCmd.AddCommand(cmdServer)
 }
 
-// note: this server start and shutdown mostly copy from https://aaf.engineering/go-web-application-structure-part-2/
 func runServer(cmd *cobra.Command, args []string) {
 	fx.New(
 		fx.Supply(cmd),
