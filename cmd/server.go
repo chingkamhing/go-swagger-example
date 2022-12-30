@@ -80,6 +80,7 @@ func runServer(cmd *cobra.Command, args []string) {
 			ProvideSugaredLogger,
 			fx.Annotate(ProvideSugaredLogger, fx.As(new(logger.Logger))),
 		),
+		fx.Invoke(logVersion),
 		config.Module,
 		server.Module,
 	).Run()
