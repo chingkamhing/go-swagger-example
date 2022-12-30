@@ -49,7 +49,7 @@ func init() {
 	cmdServer.Flags().Duration("session.idle-timeout", time.Duration(60*time.Minute), "session idle timeout")
 	cmdServer.Flags().String("session.name", basename, "session cookie name")
 	cmdServer.Flags().Bool("session.persist", true, "cookie persist across browser close")
-	cmdServer.Flags().String("session.store", "mem", "cookie storage of: redis, file or mem")
+	cmdServer.Flags().String("session.store", "file", "cookie storage of: redis, file or mem")
 	cmdServer.Flags().String("session.network", "tcp", "(if store is redis) redis network of: tcp")
 	cmdServer.Flags().String("session.address", "localhost:6379", "(if store is redis) redis ip address")
 	cmdServer.Flags().String("session.password", "", "(if store is redis) redis password")
