@@ -7,6 +7,8 @@ import (
 	"net/http"
 
 	"go-swagger-example/gen/models"
+
+	"github.com/go-openapi/errors"
 )
 
 // user's session key name
@@ -27,7 +29,7 @@ func (s *Session) GetUser(ctx context.Context) (user *models.UserInfo, err error
 	any := s.sessionManager.Get(ctx, userKey)
 	user, ok := any.(*models.UserInfo)
 	if !ok {
-		return nil, fmt.Errorf("invalid user session")
+		return nil, errors.Unauthenticated("invalid usser session")
 	}
 	return user, nil
 }
@@ -42,7 +44,7 @@ func (s *Session) GetCookieUser(token string) (user *models.UserInfo, err error)
 	ctx := context.TODO()
 	ctx, err = s.sessionManager.Load(ctx, token)
 	if err != nil {
-		return nil, fmt.Errorf("fail to load user session: %w", err)
+		return nil, errors.Unauthenticated(fmt.Sprintf("failing to load user token: %v", err))
 	}
 	return s.GetUser(ctx)
 }
