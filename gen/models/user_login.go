@@ -31,7 +31,7 @@ type UserLogin struct {
 	LoginName string `json:"loginName"`
 
 	// password hash
-	PasswordHash string `json:"passwordHash"`
+	PasswordHash string `json:"passwordHash" json:"-"`
 
 	// user Id
 	UserID uint32 `json:"userId,omitempty"`

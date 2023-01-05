@@ -32,7 +32,7 @@ func init() {
   "info": {
     "description": "Example application server",
     "title": "Example application",
-    "version": "1.0.0"
+    "version": "0.0.1"
   },
   "paths": {
     "/api/auth/login": {
@@ -247,6 +247,7 @@ func init() {
         },
         "passwordHash": {
           "type": "string",
+          "x-go-custom-tag": "json:\"-\"",
           "x-omitempty": false
         },
         "userId": {
@@ -286,7 +287,7 @@ func init() {
   "info": {
     "description": "Example application server",
     "title": "Example application",
-    "version": "1.0.0"
+    "version": "0.0.1"
   },
   "paths": {
     "/api/auth/login": {
@@ -501,6 +502,7 @@ func init() {
         },
         "passwordHash": {
           "type": "string",
+          "x-go-custom-tag": "json:\"-\"",
           "x-omitempty": false
         },
         "userId": {

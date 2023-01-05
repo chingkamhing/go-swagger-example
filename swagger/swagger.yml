@@ -156,6 +156,7 @@ definitions:
       passwordHash:
         type: string
         x-omitempty: false
+        x-go-custom-tag: 'json:"-"'
       email:
         type: string
         x-omitempty: false
